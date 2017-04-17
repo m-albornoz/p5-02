@@ -1,0 +1,5 @@
+body{padding-top: 70px;}
+footer{margin-top:4em; padding:1em 0; border-top:1px solid #ddd; font-size:90%; letter-spacing: 0.05em;}
+#miContenedor{width:100%; height:400px; overflow: hidden; margin-bottom: 1em;}
+#miMapa{width:900px; height:570px; overflow: hidden; margin-bottom: 1em; background:transparent url('images/proyeccion-de-peters.png') 0 0 no-repeat;}
+h4{line-height: 1.5;}

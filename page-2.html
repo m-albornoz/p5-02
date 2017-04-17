@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show me the data! HDX</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/p5.min.js" type="text/javascript"></script>
+    <script src="js/p5.dom.min.js" type="text/javascript"></script>
+    <script src="p5/dos.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Show me the data!</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="page-1.html">Open Notify</a></li>
+            <li><a href="page-2.html">HDX</a></li>
+            <li><a href="page-3.html">SmartCitizen</a></li>
+            <li><a href="page-4.html">DIS</a></li>
+            <li><a href="page-5.html">Buscar</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<div class="container">
+<div class="row">
+<div class="col-sm-12">
+<h1>Javascript y data, vía p5.js<br />
+<small>Introducción a la programación del lado del cliente</small></h1>
+<p>Aquí vamos a utilizar data de <a href="https://data.humdata.org/" rel="nofollow">The Humanitarian Data Exchange</a>.
+  El formato que utilizaremos será CSV.</p>
+<p>En este ejemplo, vemos <a href="https://data.humdata.org/dataset/maternal_mortality_ratio_per_100000_live_births" rel="nofollow">la tasa de Tasa de mortalidad materna por cada 100.000 nacidos vivos</a> en Chile. De la <a href="http://manage.hdx.rwlabs.org/hdx/api/exporter/indicator/csv/PVH190/source/mdgs/fromYear/1950/toYear/0/language/en/PVH190_Baseline.csv">consulta a un documento CSV</a> se encarga <code>p5/dos.json</code>.</p>
+<div id="miContenedor"></div>
+
+<p>A diferencia del trabajo con JSON, en el trabajo con CSV es preferible usar la <code>function preload(){}</code>,
+  teniendo claro que lo que allí se carga es una tabla (<code>loadTable()</code>).</p>
+<p>Otra recomendación, y que aplica a este caso particular, es que deben asegurarse de tener permiso de acceder al servidor que ofrece la data.
+En este caso, <a href="https://data.humdata.org/" rel="nofollow">The Humanitarian Data Exchange</a> no me dio permiso para hacer una consulta directa sin identificarme,
+por eso estoy precargando el CSV desde otro lado (mi repositorio de GitHub).</p>
+<pre>
+<code>var hxd;
+
+function preload() {
+  hxd = loadTable("https://raw.githubusercontent.com/profesorfaco/dgp602.data/gh-pages/data/hdx.csv", "csv", "header");
+}
+
+function setup() {
+  var miCanvas = createCanvas(windowWidth, 400);
+  miCanvas.parent('miContenedor');
+  print(hxd.getRowCount() + " filas en la tabla");
+  print(hxd.getColumnCount() + " columnas en la tabla");
+  noLoop();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, 400);
+}
+
+function draw(){
+  background(230);
+  var chile = 29;
+  textAlign(LEFT);
+  textSize(20);
+  text(hxd.get(chile,1),((width/30)-10),50);
+  for (var i = 0; i < (hxd.getRowCount()+4); i++){
+    textSize(11);
+    textAlign(CENTER);
+    fill(100);
+    text(hxd.get(chile,(3+i)), ((width/30)*(i+1)), (height-30)-hxd.get(chile,(3+i)));
+    fill(0);
+    text('2015'-i,((width/30)*(i+1)),height-20);
+  }
+}</code>
+</pre>
+<h4>El tercer desafío también tiene algo de doble:</h4>
+<h4>Debes consultar y visualizar la data correspondientes a otro país. Intenta mostrarla en comparación con la de Chile, para hacer evidente el dato del año con la mayor diferencia.</h4>
+<footer><p>Lunes 17 de abril, 2017 &bull; Seminario Gráfica Computacional II &bull; Carrera de Diseño &bull; Escuela de Pregrado FAU &bull; Universidad de Chile</p></footer>
+</div>
+</div>
+</div><!--container-->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show me the data! Open Notify</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/p5.min.js" type="text/javascript"></script>
+    <script src="js/p5.dom.min.js" type="text/javascript"></script>
+    <script src="p5/uno.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Show me the data!</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="page-1.html">Open Notify</a></li>
+            <li><a href="page-2.html">HDX</a></li>
+            <li><a href="page-3.html">SmartCitizen</a></li>
+            <li><a href="page-4.html">DIS</a></li>
+            <li><a href="page-5.html">Buscar</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Javascript y data, vía p5.js<br />
+            <small>Introducción a la programación del lado del cliente</small></h1>
+            <p>En index.html hicimos una consulta a un CSV. Aquí vamos a explorar otro formato, que nos entrega una estructura más evidente.
+            <a href="https://raw.githubusercontent.com/profesorfaco/dgp602.data/gh-pages/data/ejemplo.json" rel="nofollow">Podríamos seguir hablando de premios Óscar</a>,
+            pero creo que es mejor cambiar de tema; aprovechemos lo que nos ofrece <a href="http://open-notify.org/">Open Notify</a>:</p>
+            <blockquote>Open Notify is an open source project to provide a simple programming interface for some of NASA’s awesome data</blockquote>
+            <p>¿Alguna vez te has preguntado cuántos humanos están en el espacio exterior en este momento? ¿Te has preguntado cuáles son sus nombres? ¿Te has preguntado dónde están metidos?</p>
+            <p>Lo más probable es que hayas respondido, tres veces, "no, nunca". De todas maneras, a continuación tienes respuesta para las preguntas. De ella se encarga <code>p5/uno.js</code>,
+              consultando a <code>http://api.open-notify.org/astros.json</code></p>
+            <div id="miContenedor"></div>
+            <p>Si abres la <a href="https://transferwise.com/es/help/article/2247654/tecnico-navegador/como-abrir-la-consola-de-tu-navegador" rel="nofollow">consola de JavaScript de tu navegador</a>,
+              podrás ver que se despliega la data de un <a href="https://www.w3schools.com/js/js_objects.asp">objeto JavaScript</a>. Esa data es la de <code>http://api.open-notify.org/astros.json</code>.</p>
+            <p>En la data del objeto hay un <code>number:3</code>, que me permite establecer un límite para el <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Bucles_e_iteraci%C3%B3n#sentencia_for">bucle <em>for</em></a>:</p>
+<pre>
+<code>var spaceOddity;
+
+  function setup() {
+    loadJSON('http://api.open-notify.org/astros.json', gotData,'jsonp');
+    var miCanvas = createCanvas(windowWidth, 300);
+    miCanvas.parent('miContenedor');
+  }
+
+  function gotData(data){
+     console.log(data);
+     spaceOddity = data;
+  }
+
+  function draw(){
+    background(235);
+    if(spaceOddity){
+      rectMode(CORNER)
+      for (var n = 0; n < spaceOddity.number; n++){
+        text(spaceOddity.people[n].name+" ("+spaceOddity.people[n].craft+")", 10, 20*(n+1));
+      }
+    }
+  }</code>
+</pre>
+            <p>¿Pero qué pasaría si no contara con ese límite? ¿Cómo podría calcular el número de repeticiones?</p>
+            <p>Dicho de otro modo, si no tengo <code>number:3</code>, cómo tendría que escribir el <code>for(var n = 0; n < estacionEspacial.<strong>number</strong>; n++){}</code>.</p>
+            <h4>El segundo desafío es doble:</h4>
+            <h4>1) debes resolver el problema de <code>for(var n = 0; n < estacionEspacial.<strong>number</strong>; n++){}</code>. Se recomienda consultar la página de <a href="https://github.com/processing/p5.js/wiki/JavaScript-basics">JavaScript basics</a>, o revisar la clase anterior. Una pista: <code>length</code></h4>
+            <h4>2) debes cambiar el nombre de los astronautas por los premios Óscar obtenidos de La La Land.</h4>
+            <footer><p>Lunes 17 de abril, 2017 &bull; Seminario Gráfica Computacional II &bull; Carrera de Diseño &bull; Escuela de Pregrado FAU &bull; Universidad de Chile</p></footer>
+        </div>
+      </div>
+    </div><!--container-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show me the data!</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/p5.min.js" type="text/javascript"></script>
+    <script src="js/p5.dom.min.js" type="text/javascript"></script>
+    <script src="p5/cero.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Show me the data!</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="page-1.html">Open Notify</a></li>
+            <li><a href="page-2.html">HDX</a></li>
+            <li><a href="page-3.html">SmartCitizen</a></li>
+            <li><a href="page-4.html">DIS</a></li>
+            <li><a href="page-5.html">Buscador</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+<h1>Javascript y data, vía p5.js<br />
+<small>Introducción a la programación del lado del cliente</small></h1>
+<p>Lo primero que haremos en esta clase será asomarnos a la <a href="https://transferwise.com/es/help/article/2247654/tecnico-navegador/como-abrir-la-consola-de-tu-navegador" rel="nofollow">Consola de Javascript</a>.
+  Gracias a <code>p5/cero.js</code>, podrán ver en su Consola se <a href="https://p5js.org/reference/#/p5/print" rel="nofollow">imprimen</a> algunos <em>datos</em> sobre los más acaparadores de los premios Óscar,
+  según consulta a la <em>data</em> dentro <a href="https://github.com/profesorfaco/dgp602.data/blob/gh-pages/data/acaparadores-de-premios-oscar.csv">un CSV que dejé en línea</a>.</p>
+<p>En el párrafo anterior, usé adrede las palabras <em>data</em> y <em>datos</em>; cada vez que diga <em>data</em> estaré refiriéndome a eso cuya forma aún está por <a href="http://dle.rae.es/?id=DXtqSSD">des-velarse</a>.
+  Cuando diga <em>datos</em> estaré suponiendo que hay una forma que ya se des-vela, que permite in-formar-nos de algo concreto.</p>
+<p><strong>Desarrollemos la idea de diferenciar <em>data</em> y <em>datos</em> en un ejemplo de tres pasos:</strong> </p>
+<p><strong>Primero:</strong> Es difícil que te informes si te enfrentas solamente a <em>data</em>:</p>
+<pre><code>1934,It Happened One Night,5,5</code></pre>
+<p><strong>Segundo:</strong> A condición de estar informado de que los ítems en la primera línea describen el orden de la segunda línea, el asunto es distinto: </p>
+<pre><code>year, movie, oscars, nominations
+1934, It Happened One Night, 5, 5
+</code></pre>
+<p><strong>Tercero:</strong> Si cumples con la condición recién indicada, te informas del <em>dato</em>: </p>
+<blockquote>
+<p>En <code>1934</code>, la película <code>It Happened One Night</code> ganó <code>5</code> premios Óscar de los <code>5</code> a los que fue nominada.</p>
+</blockquote>
+<p>Ahora bien, en la Consola de JavaScript no se está imprimiendo tal frase, sino:</p>
+<blockquote>
+<p>El año <code>1934</code>, la película <code>«It Happened One Night»</code> se llevó <code>5</code> premios Oscar para su casa.</p>
+</blockquote>
+<p>Se <a href="https://p5js.org/reference/#/p5/print" rel="nofollow">imprime</a> de tal manera, porque así es como lo indica <code>p5/cero.js</code></p>
+<pre><code>var data;
+//lo primero es crear una variable global, a la que se le asignará un contenido en preload(){}
+
+function preload() {
+  data = loadTable(&quot;https://raw.githubusercontent.com/profesorfaco/dgp602.data/gh-pages/data/acaparadores-de-premios-oscar.csv&quot;, &quot;csv&quot;, &quot;header&quot;);
+}
+
+function setup() {
+  for (var i = 0; i &lt; data.getRowCount(); i++) {
+    var year = data.get(i, 0);
+    var title = data.get(i, 1);
+    var how_many = data.get(i, 2);
+    print(&quot;El año &quot; + year + &quot;, la película «&quot; + title + &quot;» se llevó &quot; + how_many + &quot; premios Oscar para su casa.&quot;);
+    print(&quot;La tabla consultada tiene &quot; + data.getRowCount() + &quot; filas y &quot; + data.getColumnCount() + &quot; columnas.&quot;);
+  }
+}
+
+function draw() {}
+</code></pre>
+<h4>El primer desafío:</h4>
+<h4>Modifica el script <code>p5/cero.js</code> para que imprima en la Consola de Javascript (todas las veces necesarias) la frase:<h4/>
+<blockquote>
+<h4>En <code>[año]</code>, la película <code>[nombre]</code> ganó <code>[nro.]</code> premios Óscar de los <code>[nro.]</code> a los que fue nominada.</blockquote></h4>
+</blockquote>
+
+<footer><p>Lunes 17 de abril, 2017 &bull; Seminario Gráfica Computacional II &bull; Carrera de Diseño &bull; Escuela de Pregrado FAU &bull; Universidad de Chile</p></footer>
+</div>
+</div>
+</div><!--container-->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+[
+   {
+      "nombre":"La La Land",
+      "fecha":2016,
+      "direccion":"Damien Chazelle",
+      "fotografia":"Linus Sandgren",
+      "duracion":"128 minutos",
+      "gnero":"Musical",
+      "guion":"Damien Chazelle",
+      "protagonistas":[
+         "Emma Stone",
+         "Ryan Gosling"
+      ],
+      "montaje":"Tom Cross",
+      "produccion":[
+         "Fred Berger",
+         "Jordan Horowitz",
+         "Gary Gilbert",
+         "Marc Platt"
+      ],
+      "musica":"Justin Hurwitz",
+      "oscar":[
+         "Mejor director",
+         "Mejor actriz",
+         "Mejor banda sonora",
+         "Mejor canción original",
+         "Mejor diseño de producción",
+         "Mejor fotografía"
+      ]
+   },
+   {
+      "nombre":"It Happened One Night",
+      "fecha":1934,
+      "direccion":"Frank Capra",
+      "fotografia":"Joseph Walker",
+      "duracion":"105 minutos",
+      "gnero":"Comedia",
+      "guion":"Robert Riskin",
+      "protagonistas":[
+         "Clark Gable",
+         "Claudette Colbert",
+         "Walter Connolly",
+         "Roscoe Karns",
+         "Jameson Thomas"
+      ],
+      "montaje":"Gene Havlick",
+      "produccion":[
+         "Frank Capra",
+         "Harry Cohn"
+      ],
+      "musica":[
+         "Howard Jackson",
+         "Louis Silvers"
+      ],
+      "oscar":[
+         "Mejor película",
+         "Mejor director",
+         "Mejor actor",
+         "Mejor actriz",
+         "Mejor guion adaptado"
+      ]
+   }
+]
